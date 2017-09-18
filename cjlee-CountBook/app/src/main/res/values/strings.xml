@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">cjlee-CountBook</string>
+    <string name="Edit_Name">Enter a counter name</string>
+    <string name="edit_date">Enter Date (dd-mm-yyyy)</string>
+    <string name="edit_current">Current value(positive integers)</string>
+    <string name="Edit_initial">Initial value(positive integers)</string>
+    <string name="Send_counter_data">Enter</string>
+    <string name="edit_comment">Enter comment</string>
+</resources>
