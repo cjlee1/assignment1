@@ -10,12 +10,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MainActivity extends AppCompatActivity {
 
 
     ArrayList<String> listItems = new ArrayList<String>();
     private ListView CounterList;
+    private String Counter_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +42,17 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 Bundle extras = getIntent().getExtras();
-
-                String returnData = data.getStringExtra("keyName");
+                Counter_name = data.getStringExtra("CounterName");
+              //  AtomicReference<String> comment = new AtomicReference<>(extras.getString("Comment"));
+                //String returnData = data.getStringExtra("CounterName");
                 // set text view with string
-               // TextView textView = (TextView) findViewById(R.id.textView);
-               // textView.setText(returnData);
+                // TextView textView = (TextView) findViewById(R.id.textView);
+                // textView.setText(returnData);
                 CounterList=(ListView)findViewById(R.id.CounterList);
                 ArrayList<String> listItems = new ArrayList<String>();
-                listItems.add(returnData);
+                listItems.add(Counter_name);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                        android.R.layout.simple_list_item_2, listItems);
+                        android.R.layout.simple_list_item_1, listItems);
                 CounterList.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
 
