@@ -68,16 +68,25 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
-
+                try {
+                    String countName = edit1.getText().toString();
+                }
+                catch(Exception e) {
+                    edit1.setText("Enter a name", TextView.BufferType.EDITABLE);
+                    return;}
                 try {
                     Number initVal = Integer.parseInt(edit3.getText().toString());
-                    Number curVal = Integer.parseInt(edit3.getText().toString());
                 }
-                    catch(Exception e) {
+                    catch(Exception f) {
                         edit3.setText("Enter a number", TextView.BufferType.EDITABLE);
-                        edit4.setText("Enter a number", TextView.BufferType.EDITABLE);
-
                         return;
+                }
+                try {
+                    Number curVal = Integer.parseInt(edit4.getText().toString());
+                }
+                catch(Exception g) {
+                    edit4.setText("Enter a number", TextView.BufferType.EDITABLE);
+                    return;
                 }
 
                 //get the necessary information for the counter from the user

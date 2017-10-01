@@ -118,6 +118,7 @@ public class CustomAdapter extends ArrayAdapter<CounterListItem> {
             public void onClick(View view) {
                 CounterListItem clr = entries.get(position);
                 int curVal = Integer.parseInt(String.valueOf(clr.getCurVal()));
+                if (curVal==0) return;
                 curVal= curVal-1; // subtract the current value by 1
                 clr.setCurVal(curVal); // set the current value to new value
                 curValView.setText(clr.getCurVal().toString());
@@ -159,7 +160,7 @@ public class CustomAdapter extends ArrayAdapter<CounterListItem> {
 
     return convertView;
     }
-    
+
 
     private static class ItemHolder{
         public TextView counterNameView;

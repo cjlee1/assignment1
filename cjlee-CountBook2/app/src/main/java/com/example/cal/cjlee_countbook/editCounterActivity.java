@@ -52,11 +52,26 @@ public class editCounterActivity extends AppCompatActivity {
         enterButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                /**
-                 counterList.add(EditText1.getText().toString());
-
-                 CustomAdapter.notifyDataSetChanged();
-                 **/
+                try {
+                    String countName = nameEt.getText().toString();
+                }
+                catch(Exception e) {
+                    nameEt.setText("Enter a name", TextView.BufferType.EDITABLE);
+                    return;}
+                try {
+                    Number initVal = Integer.parseInt(initEt.getText().toString());
+                }
+                catch(Exception f) {
+                    initEt.setText("Enter a number", TextView.BufferType.EDITABLE);
+                    return;
+                }
+                try {
+                    Number curVal = Integer.parseInt(curEt.getText().toString());
+                }
+                catch(Exception g) {
+                    curEt.setText("Enter a number", TextView.BufferType.EDITABLE);
+                    return;
+                }
 
                 //get the necessary information for the counter from the user
                 String countName = nameEt.getText().toString();
