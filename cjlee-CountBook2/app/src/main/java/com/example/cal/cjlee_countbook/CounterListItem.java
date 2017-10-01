@@ -24,6 +24,7 @@ public class CounterListItem {
         this.initVal = initVal;
         this.curVal = curVal;
         this.Comment1= Comment1;
+
     }
 
     public String getCounterName() {

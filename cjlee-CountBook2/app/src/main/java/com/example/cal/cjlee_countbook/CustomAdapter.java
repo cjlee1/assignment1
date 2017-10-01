@@ -1,12 +1,15 @@
 package com.example.cal.cjlee_countbook;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.widget.TextViewCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -18,6 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static android.R.attr.data;
 import static android.R.attr.value;
 
 public class CustomAdapter extends ArrayAdapter<CounterListItem> {
@@ -42,37 +46,18 @@ public class CustomAdapter extends ArrayAdapter<CounterListItem> {
         return entries.get(position);
     }
 
-    public View getView(final int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, final ViewGroup parent){
         ItemHolder holder = new ItemHolder();
 
         if(convertView== null){
            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
            convertView = inflater.inflate(R.layout.img_row_layout, parent, false);
-            /**TextView tv = (TextView)convertView.findViewById(R.id.editText);
-            TextView tvDate = (TextView)convertView.findViewById(R.id.editText2);
-           TextView tvinitVal = (TextView)convertView.findViewById(R.id.editText3);
-           TextView tvcurVal = (TextView)convertView.findViewById(R.id.editText4);
-           TextView tvComment = (TextView)convertView.findViewById(R.id.editText5);
 
-
-
-           holder.counterNameView=tv;
-           holder.counterDateView=tvDate;
-           holder.initValView=tvinitVal;
-           holder.curValView=tvcurVal;
-           holder.Comment1View=tvComment;
-
-
-           convertView.setTag(holder);**/
 
        }
-        /**else
-            //holder = (ItemHolder)convertView.getTag();
-        **/
-            CounterListItem clr = entries.get(position);
 
-           Log.d("Name: ", clr.getCounterName());
-        //Log.d("date: ", clr.getCounterDate());
+            final CounterListItem clr = entries.get(position);
+
         TextView counterNameView = (TextView)convertView.findViewById(R.id.TextView);
         TextView counterDateView = (TextView)convertView.findViewById(R.id.TextView2);
         TextView initValView = (TextView)convertView.findViewById(R.id.TextView3);
@@ -84,7 +69,7 @@ public class CustomAdapter extends ArrayAdapter<CounterListItem> {
 
         if (counterDateView!= null) {
 
-            Log.d("date: ", clr.getCounterDate());
+
             counterDateView.setText(clr.getCounterDate());
         }
         if (initValView!= null) initValView.setText(clr.getInitVal().toString());
@@ -93,6 +78,25 @@ public class CustomAdapter extends ArrayAdapter<CounterListItem> {
 
         //onclicklistener for incbutton which will increase the current value by 1 on the clicked counter
        Button incButton = (Button)convertView.findViewById(R.id.incButton);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Activity main = (MainActivity) context;
+                Intent myIntent = new Intent(main,editCounterActivity.class);
+
+                //put the extras into the intent so name,curval ,init val and comment
+                myIntent.putExtra("counterName", clr.getCounterName());
+                myIntent.putExtra("counterDate", clr.getCounterDate());
+
+                myIntent.putExtra("curVal", clr.getCurVal().toString());
+                myIntent.putExtra("initVal", clr.getInitVal().toString());
+                myIntent.putExtra("comment", clr.getComment());
+                myIntent.putExtra("position", position);
+
+                main.startActivityForResult(myIntent,2);
+            }
+        });
 
         incButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,8 +155,11 @@ public class CustomAdapter extends ArrayAdapter<CounterListItem> {
 
 
 
+
+
     return convertView;
     }
+    
 
     private static class ItemHolder{
         public TextView counterNameView;
